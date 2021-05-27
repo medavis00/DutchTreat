@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DutchTreat.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace DutchTreat.Data
@@ -26,7 +27,7 @@ namespace DutchTreat.Data
         _logger.LogInformation("GetAllProducts was called...");
 
         return _ctx.Products
-                   .OrderBy(p => p.Artist)
+                   .OrderBy(p => p.Title)
                    .ToList();
 
       }
@@ -35,6 +36,31 @@ namespace DutchTreat.Data
         _logger.LogError($"Failed to get all products: {ex}");
         return null;
       }
+    }
+
+    public IEnumerable<Order> GetAllOrders(bool includeItems)
+    {
+      if (includeItems)
+      {
+        return _ctx.Orders
+          .Include(o => o.Items)
+          .ThenInclude(i => i.Product)
+          .ToList();
+      }
+      else
+      {
+        return _ctx.Orders
+          .ToList();
+      }
+    }
+
+    public Order GetOrderById(int id)
+    {
+      return _ctx.Orders
+        .Include(o => o.Items)
+        .ThenInclude(i => i.Product)
+        .Where(o => o.Id == id)
+        .FirstOrDefault();
     }
 
     public IEnumerable<Product> GetProductsByCategory(string category)
@@ -48,5 +74,10 @@ namespace DutchTreat.Data
     {
       return _ctx.SaveChanges() > 0;
     }
-  }
+
+    public void AddEntity(object entity)
+    {
+      _ctx.Add(entity);
+    }
+    }
 }
