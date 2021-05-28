@@ -14,7 +14,7 @@ namespace DutchTreat.Data
     private readonly DutchContext _ctx;
     private readonly ILogger<DutchRepository> _logger;
 
-    public DutchRepository(DutchContext ctx, ILogger<DutchRepository> logger) 
+    public DutchRepository(DutchContext ctx, ILogger<DutchRepository> logger)
     {
       _ctx = ctx;
       _logger = logger;
@@ -79,5 +79,5 @@ namespace DutchTreat.Data
     {
       _ctx.Add(entity);
     }
-    }
+  }
 }

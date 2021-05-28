@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using DutchTreat.Data;
 using DutchTreat.Services;
@@ -28,11 +29,18 @@ namespace DutchTreat
     // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddDbContext<DutchContext>();
       
-      services.AddTransient<IMailService, NullMailService>();
+            services.AddDbContext<DutchContext>(cfg =>
+            {
+                cfg.UseSqlServer(_config.GetConnectionString("DutchConnectionString"));
+            });
 
-      services.AddTransient<DutchSeeder>();
+            services.AddTransient<DutchSeeder>();
+
+            services.AddTransient<IMailService, NullMailService>();
+
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
 
             // for testing...
             //services.AddScoped<IDutchRepository, MockDutchRepository>();

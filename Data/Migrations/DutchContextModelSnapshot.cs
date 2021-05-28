@@ -35,6 +35,14 @@ namespace DutchTreat.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            OrderDate = new DateTime(2021, 5, 28, 0, 59, 1, 940, DateTimeKind.Utc).AddTicks(9352),
+                            OrderNumber = "12345"
+                        });
                 });
 
             modelBuilder.Entity("DutchTreat.Data.Entities.OrderItem", b =>
@@ -54,7 +62,7 @@ namespace DutchTreat.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.HasKey("Id");
 
@@ -97,7 +105,7 @@ namespace DutchTreat.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<string>("Size")
                         .HasColumnType("nvarchar(max)");

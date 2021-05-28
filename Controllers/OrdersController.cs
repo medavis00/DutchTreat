@@ -33,9 +33,8 @@ namespace DutchTreat.Controllers
     {
       try
       {
-        var results = _repository.GetAllOrders(includeItems);
-
-        return Ok(_mapper.Map<IEnumerable<OrderViewModel>>(results));
+        var result = _repository.GetAllOrders(includeItems);
+        return Ok(_mapper.Map<IEnumerable<OrderViewModel>>(result));
       }
       catch (Exception ex)
       {
@@ -74,7 +73,7 @@ namespace DutchTreat.Controllers
             newOrder.OrderDate = DateTime.Now;
           }; 
 
-          _repository.AddEntity(newOrder);
+          //_repository.AddEntity(newOrder);
           if (_repository.SaveAll())
           {
             return Created($"/api/orders/{newOrder.Id}", _mapper.Map<OrderViewModel>(newOrder));

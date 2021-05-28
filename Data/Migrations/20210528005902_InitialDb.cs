@@ -29,7 +29,7 @@ namespace DutchTreat.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Size = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Price = table.Column<decimal>(type: "money", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ArtDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ArtDating = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -52,7 +52,7 @@ namespace DutchTreat.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(type: "int", nullable: true),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "money", nullable: false),
                     OrderId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -71,6 +71,11 @@ namespace DutchTreat.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Orders",
+                columns: new[] { "Id", "OrderDate", "OrderNumber" },
+                values: new object[] { 1, new DateTime(2021, 5, 28, 0, 59, 1, 940, DateTimeKind.Utc).AddTicks(9352), "12345" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItem_OrderId",

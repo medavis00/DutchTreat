@@ -2,8 +2,8 @@
   "Colors": {
     "Favorite": "Blue"
   },
-   "ConnectionStrings": {
-		"DutchContextDb": "Data Source=(localdb)\\ProjectsV13;Database=DutchTreatDb;Integrated Security=True;MultipleActiveResultSets=true;"
+  "ConnectionStrings": {
+    "DutchConnectionString": "Data Source=(localdb)\\ProjectsV13;Database=DutchTreatDb;Integrated Security=True;MultipleActiveResultSets=true;"
   },
   "Logging": {
     "LogLevel": {
